@@ -12,14 +12,15 @@ def cari_definisi_inggris(kata):
     return kumpulan_makna[0].definition()
 
 if __name__ == "__main__":
-    daftar_kata = ["invisible", "griffin", "pharos", "serendipity"]
+    # daftar_kata = ["invisible", "griffin", "pharos", "serendipity"]
+    # mengganti daftar kata yang terinput langsung dengan input teks
 
-    print("\n=== MENGAMBIL DEFINISI DARI WORDNET ===")
-    for k in daftar_kata:
-        definisi = cari_definisi_inggris(k)
-        if definisi:
-            print(f"Kata: {k}")
-            print(f"Definisi: {definisi}\n")
-        else:
-            print(f"Kata: {k}")
-            print("Definisi: Tidak ditemukan di WordNet.\n")
+    kata_yang_dicari = input("Let's find the meaning of: ")
+    print("\n=== CHECKING FROM WORDNET ===")
+    definisi = cari_definisi_inggris(kata_yang_dicari)
+    if definisi:
+        print(f"Kata: {kata_yang_dicari}")
+        print(f"Definisi: {definisi}\n")
+    else:
+        print(f"Kata: {kata_yang_dicari}")
+        print("Definisi: Tidak ditemukan di WordNet.\n")
