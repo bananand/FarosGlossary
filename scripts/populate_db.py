@@ -8,7 +8,7 @@ def build_massive_database():
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS bank_kata_inggris (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            kata TEXT UNIQUE,
+            kata TEXT,
             definisi_en TEXT,
             terjemahan_id TEXT
     )
@@ -21,11 +21,10 @@ def build_massive_database():
     data_kata_siap_masuk = []
 
     for kata in semua_kata:
-        synets = wordnet.synsets(kata)
-        if synets:
-            definisi = synets[0].definition()
+        synsets = wordnet.synsets(kata)
+        for synset in synsets:
+            definisi = synset.definition()
             kata_terformat = kata.replace('_', ' ') #wordnet pakai underscore buat frasa
-
             data_kata_siap_masuk.append((kata_terformat, definisi, ""))
     print(f"Memasukkan {len(data_kata_siap_masuk)} kata ke database.")     
 

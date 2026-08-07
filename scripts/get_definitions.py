@@ -9,7 +9,11 @@ def cari_definisi_inggris(kata):
 
     if not kumpulan_makna:
         return None
-    return kumpulan_makna[0].definition()
+
+    semua_definisi = []
+    for makna in kumpulan_makna:
+        semua_definisi.append(makna.definition())
+    return semua_definisi
 
 if __name__ == "__main__":
     # daftar_kata = ["invisible", "griffin", "pharos", "serendipity"]
@@ -17,10 +21,15 @@ if __name__ == "__main__":
 
     kata_yang_dicari = input("Let's find the meaning of: ")
     print("\n=== CHECKING FROM WORDNET ===")
-    definisi = cari_definisi_inggris(kata_yang_dicari)
-    if definisi:
-        print(f"Kata: {kata_yang_dicari}")
-        print(f"Definisi: {definisi}\n")
+
+    daftar_definisi = cari_definisi_inggris(kata_yang_dicari)
+    if daftar_definisi:
+        print(f"Kata: {kata_yang_dicari.upper()}")
+        # print(f"Definisi: {daftar_definisi}\n")
+
+        for indeks, definisi in enumerate(daftar_definisi, 1):
+            print(f"{indeks}. {definisi}")
+        print()
     else:
         print(f"Kata: {kata_yang_dicari}")
         print("Definisi: Tidak ditemukan di WordNet.\n")
