@@ -1,35 +1,31 @@
-import nltk
-from nltk.corpus import wordnet 
+import sqlite3
 
-print("Memeriksa ketersediaan data WordNet...")
-nltk.download('wordnet', quiet=True)
+def cari_kata_kamus(kata):
+    conn = sqlite3.connect("src/kamus.db")
+    cursor = conn.cursor()
 
-def cari_definisi_inggris(kata):
-    kumpulan_makna = wordnet.synsets(kata)
+    cursor.execute('''
+        SELECT definisi_en, terjemahan
+        FROM bank_kata_inggris
+        WHERE kata = ?
+''', [kata.lower()]) #sqlite hanya nerima data dalam bentuk tuple/list, makanya harus dibungkus pake list di sini
 
-    if not kumpulan_makna:
-        return None
-
-    semua_definisi = []
-    for makna in kumpulan_makna:
-        semua_definisi.append(makna.definition())
-    return semua_definisi
+    hasil = cursor.fetchall()
+    conn.close()
+    return hasil
 
 if __name__ == "__main__":
-    # daftar_kata = ["invisible", "griffin", "pharos", "serendipity"]
-    # mengganti daftar kata yang terinput langsung dengan input teks
-
     kata_yang_dicari = input("Let's find the meaning of: ")
-    print("\n=== CHECKING FROM WORDNET ===")
+    print(f"Searching for '{kata_yang_dicari.upper()}'")
 
-    daftar_definisi = cari_definisi_inggris(kata_yang_dicari)
-    if daftar_definisi:
-        print(f"Kata: {kata_yang_dicari.upper()}")
-        # print(f"Definisi: {daftar_definisi}\n")
+    daftar_makna = cari_kata_kamus(kata_yang_dicari)
 
-        for indeks, definisi in enumerate(daftar_definisi, 1):
-            print(f"{indeks}. {definisi}")
-        print()
+    if daftar_makna:
+        for indeks, (definisi, terjemahan) in enumerate(daftar_makna, 1):
+            teks_terjemahan = terjemahan if terjemahan else "No Indonesian translation found in database library."
+
+            print(f" [EN]  {indeks}. {definisi}")
+            print(f" [ID]  {indeks}. {teks_terjemahan}\n")
     else:
-        print(f"Kata: {kata_yang_dicari}")
-        print("Definisi: Tidak ditemukan di WordNet.\n")
+        print(f"Sorry, the word '{kata_yang_dicari.upper()}' is not found in the database library.")      
+
