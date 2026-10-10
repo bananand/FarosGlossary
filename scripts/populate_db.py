@@ -35,7 +35,12 @@ def build_massive_database():
 
             daftar_indo = synset.lemma_names('ind')
             #list comprehension python
-            terjemahan_bersih = ", ".join([indo.replace('_', ' ') for indo in daftar_indo])
+            #menghapus duplikat sambil pertahanin urutan dengan dict.keys
+            terjemahan_unik = list(dict.fromkeys(
+                indo.replace('_', ' ') for indo in daftar_indo
+            ))
+            #pemisah  "; "supaya arti koma tidak tertukar dengan apa yang ada dalam lemma/jadikan null bila kosong
+            terjemahan_bersih = "; ".join(terjemahan_unik) or None
 
             data_kata_siap_masuk.append((kata_terformat, definisi, terjemahan_bersih))
     print(f"Memasukkan {len(data_kata_siap_masuk)} kata ke database.")     

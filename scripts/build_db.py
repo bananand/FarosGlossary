@@ -4,7 +4,7 @@ import csv
 import os
 
 def buat_database():
-    csv_path = os.path.join("data", "sampel.csv") #join bisa menerima banyak argumen
+    csv_path = os.path.join("data", "sampel.csv") #*join bisa menerima banyak argumen
     db_path = os.path.join("src", "kamus.db")
 
     if not os.path.exists(csv_path):
