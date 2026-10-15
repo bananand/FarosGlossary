@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faros Glossary</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body data-state="landing">
+    <header id="bar">
+        <form id="form" autocomplete="on">
+            <input id="cari" type="search" placeholder="Find what's on your mind here..." aria-label="cari kata">
+        </form>
+    </header>
+
+    <main>
+        <section id="awan" aria-label="kata pilihan"></section>
+        <section id="hasil" aria-live="polite">
+            <div class="kepala">
+                <h1 id="judul"></h1>
+                <button id="bintang" type="button" aria-pressed="false" aria-label="tambah ke fav">⭐</button>
+            </div>
+            <div id="filter" role="group" aria-label="filter kelas kata"></div>
+            <div id="grid"></div>
+            <p id="pesan"></p>
+        </section>
+    </main>
+
+    <nav>
+        <button id="tombol-beranda" type="button">Home</button>
+        <button id="tombol-favorit" type="button">Favs</button>
+    </nav>
+</body>
+<script src="script.js"></script>
+</html>
